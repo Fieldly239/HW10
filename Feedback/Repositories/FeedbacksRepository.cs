@@ -13,6 +13,7 @@ namespace Feedback.Repositories
 
         public FeedbacksRepository(IConfiguration configuration) : base(configuration)
         {
+            _configuration = configuration;
         }
 
         //public IEnumerable<Feedbacks> GetAllFeedbacks()
@@ -33,7 +34,7 @@ namespace Feedback.Repositories
         //    }
         //}
 
-        public override int AddFeedbacks(Feedbacks feedbacks)
+        public override int Add(Feedbacks feedbacks)
         {
             using (var db = new SqlConnection(_configuration.GetSection("ConnectionStrings:ConnectionString").Value))
             {
@@ -48,7 +49,7 @@ namespace Feedback.Repositories
                 return db.Execute(sqlCommand, ParameterMapping(feedbacks));
             }
         }
-        public override int UpdateFeedbacks(Feedbacks feedbacks)
+        public override int Update(Feedbacks feedbacks)
         {
             using (var db = new SqlConnection(_configuration.GetSection("ConnectionStrings:ConnectionString").Value))
             {
@@ -60,7 +61,7 @@ namespace Feedback.Repositories
                 return db.Execute(sqlCommand, ParameterMapping(feedbacks));
             }
         }
-        public override int DeleteFeedbacks(int id)
+        public override int Delete(int id)
         {
             using (var db = new SqlConnection(_configuration.GetSection("ConnectionStrings:ConnectionString").Value))
             {

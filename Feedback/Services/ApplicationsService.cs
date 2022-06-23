@@ -11,27 +11,27 @@ namespace Feedback.Services
         {
             _applicationsRepository = applicationsRepository;
         }
-        public IEnumerable<Applications> GetAllApplications()
+        public IEnumerable<Applications> GetAll()
         {
-            var applications = _applicationsRepository.GetAllApplications();
+            var applications = _applicationsRepository.GetAll();
             var resp = applications.OrderByDescending(m => m.ApplicationName);
             return resp;
         }
-        public Applications GetByIdApplications(int id)
+        public Applications GetById(int id)
         {
-            return _applicationsRepository.GetByIdApplications(id);
+            return _applicationsRepository.GetById(id);
         }
-        public void AddApplications(Applications applications)
+        public int Add(Applications applications)
         {
-            _applicationsRepository.AddApplications(applications);
+            return _applicationsRepository.Add(applications);
         }
-        public void UpdateApplications(Applications applications)
+        public int Update(Applications applications)
         {
-            _applicationsRepository.UpdateApplications(applications);
+            return _applicationsRepository.Update(applications);
         }
-        public void DeleteApplications(int id)
+        public int Delete(int id)
         {
-            _applicationsRepository.DeleteApplications(id);
+            return _applicationsRepository.Delete(id);
         }
 
         

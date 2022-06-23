@@ -16,32 +16,32 @@ namespace Feedback.Controllers
             _feedbacksService = feedbacksService;
         }
         [HttpGet]
-        public IEnumerable<Feedbacks> GetAllFeedbacks()
+        public IEnumerable<Feedbacks> GetAll()
         {
-            return _feedbacksService.GetAllFeedbacks();
+            return _feedbacksService.GetAll();
             
         }
         [HttpGet("{id}")]
-        public Feedbacks GetByIdFeedbacks(int id)
+        public Feedbacks GetById(int id)
         {
-            return _feedbacksService.GetByIdFeedbacks(id);
+            return _feedbacksService.GetById(id);
         }
 
         [HttpPost]
-        public void AddFeedbacks(Feedbacks feedbacks)
+        public int Add(Feedbacks feedbacks)
         {
-            _feedbacksService.AddFeedbacks(feedbacks);
+            return _feedbacksService.Add(feedbacks);
         }
 
         [HttpPut("{id}")]
-        public void UpdateFeedbacks(int id, Feedbacks feedbacks)
+        public int Update(int id, Feedbacks feedbacks)
         {
-            _feedbacksService.UpdateFeedbacks(feedbacks);
+            return _feedbacksService.Update(feedbacks);
         }
         [HttpDelete("{id}")]
-        public void DeleteFeedbacks(int id)
+        public int Delete(int id)
         {
-            _feedbacksService.DeleteFeedbacks(id);
+            return _feedbacksService.Delete(id);
         }
     }
 }

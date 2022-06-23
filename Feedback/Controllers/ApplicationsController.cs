@@ -16,31 +16,31 @@ namespace Feedback.Controllers
             _applicationsService = applicationsService;
         }
         [HttpGet]
-        public IEnumerable<Applications> GetAllApplications()
+        public IEnumerable<Applications> GetAll()
         {
-            return _applicationsService.GetAllApplications();
+            return _applicationsService.GetAll();
         }
         [HttpGet("{id}")]
-        public Applications GetByIdApplications(int id)
+        public Applications GetById(int id)
         {
-            return _applicationsService.GetByIdApplications(id);
+            return _applicationsService.GetById(id);
         }
 
         [HttpPost]
-        public void AddApplications(Applications applications)
+        public int Add(Applications applications)
         {
-            _applicationsService.AddApplications(applications);
+            return _applicationsService.Add(applications);
         }
 
         [HttpPut("{id}")]
-        public void UpdateApplications(int id, Applications applications)
+        public int Update(int id, Applications applications)
         {
-            _applicationsService.UpdateApplications(applications);
+            return _applicationsService.Update(applications);
         }
         [HttpDelete("{id}")]
-        public void DeleteApplications(int id)
+        public int Delete(int id)
         {
-            _applicationsService.DeleteApplications(id);
+            return _applicationsService.Delete(id);
         }
     }
 }

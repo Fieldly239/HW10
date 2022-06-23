@@ -4,10 +4,10 @@ namespace Feedback.Services
 {
     public interface IFeedbacksService
     {
-        IEnumerable<Feedbacks> GetAllFeedbacks();
-        Feedbacks GetByIdFeedbacks(int id);
-        void AddFeedbacks(Feedbacks feedbacks);
-        void UpdateFeedbacks(Feedbacks feedbacks);
-        void DeleteFeedbacks(int id);
+        IEnumerable<Feedbacks> GetAll();
+        Feedbacks GetById(int id);
+        int Add(Feedbacks feedbacks);
+        int Update(Feedbacks feedbacks);
+        int Delete(int id);
     }
 }

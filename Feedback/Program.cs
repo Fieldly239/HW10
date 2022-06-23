@@ -32,15 +32,13 @@ builder.Host.ConfigureContainer<ContainerBuilder>(builder =>
     builder.RegisterAssemblyTypes(repositoryAssembly).Where(t => t.Name.EndsWith("Repository"))
     .AsImplementedInterfaces()
     .SingleInstance();
+
 });
 
 builder.Services.AddTransient<IApplicationsRepository, ApplicationsRepository>();
 builder.Services.AddTransient<IApplicationsService, ApplicationsService>();
 
-builder.Services.AddDbContext<FeedbackMgmtContext>(options =>
-{
-    options.UseSqlServer(builder.Configuration.GetConnectionString("ConnectionString"));
-});
+
 
 var app = builder.Build();
 

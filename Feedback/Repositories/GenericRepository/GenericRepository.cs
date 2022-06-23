@@ -13,7 +13,7 @@ namespace Feedback.Repositories.GenericRepository
             connectionStrings = _configuration.GetSection("ConnectionStrings:ConnectionString").Value;
         }
 
-        public IEnumerable<T> GetAllFeedbacks()
+        public IEnumerable<T> GetAll()
         {
             using (var db = new SqlConnection(connectionStrings))
             {
@@ -23,7 +23,7 @@ namespace Feedback.Repositories.GenericRepository
             }
         }
 
-        public T GetByIdFeedbacks(int id)
+        public T GetById(int id)
         {
             using (var db = new SqlConnection(connectionStrings))
             {
@@ -33,8 +33,8 @@ namespace Feedback.Repositories.GenericRepository
             }
         }
 
-        public abstract int AddFeedbacks(T model);
-        public abstract int UpdateFeedbacks(T model);
-        public abstract int DeleteFeedbacks(int id);
+        public abstract int Add(T model);
+        public abstract int Update(T model);
+        public abstract int Delete(int id);
     }
 }

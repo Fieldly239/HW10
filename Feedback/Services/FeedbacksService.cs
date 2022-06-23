@@ -11,28 +11,28 @@ namespace Feedback.Services
         {
             _feedbacksRepository = feedbacksRepository;
         }
-        public IEnumerable<Feedbacks> GetAllFeedbacks()
+        public IEnumerable<Feedbacks> GetAll()
         {
-            var feedbacks = _feedbacksRepository.GetAllFeedbacks();
+            var feedbacks = _feedbacksRepository.GetAll();
             var resp = feedbacks.OrderByDescending(m => m.FeedbackName);
             return resp;
         }
-        public Feedbacks GetByIdFeedbacks(int id)
+        public Feedbacks GetById(int id)
         {
-            return _feedbacksRepository.GetByIdFeedbacks(id);
+            return _feedbacksRepository.GetById(id);
         }
-        public void AddFeedbacks(Feedbacks feedbacks)
+        public int Add(Feedbacks feedbacks)
         {
-            _feedbacksRepository.AddFeedbacks(feedbacks);
+            return _feedbacksRepository.Add(feedbacks);
         }
-        public void UpdateFeedbacks(Feedbacks feedbacks)
+        public int Update(Feedbacks feedbacks)
         {
-            _feedbacksRepository.UpdateFeedbacks(feedbacks);
+            return _feedbacksRepository.Update(feedbacks);
         }
 
-        public void DeleteFeedbacks(int id)
+        public int Delete(int id)
         {
-            _feedbacksRepository.DeleteFeedbacks(id);
+            return _feedbacksRepository.Delete(id);
         }
 
         
