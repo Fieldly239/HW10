@@ -121,3 +121,5 @@ D:\HW11\HW9\Feedback\obj\Debug\net6.0\Feedback.pdb
 D:\HW11\HW9\Feedback\obj\Debug\net6.0\Feedback.genruntimeconfig.cache
 D:\HW11\HW9\Feedback\obj\Debug\net6.0\ref\Feedback.dll
 D:\HW11\HW9\Feedback\bin\Debug\net6.0\Dapper.dll
+D:\HW11\HW9\Feedback\bin\Debug\net6.0\Autofac.dll
+D:\HW11\HW9\Feedback\bin\Debug\net6.0\Autofac.Extensions.DependencyInjection.dll

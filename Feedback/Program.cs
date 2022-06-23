@@ -1,3 +1,5 @@
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
 using Feedback.Repositories;
 using Feedback.Services;
 using Microsoft.EntityFrameworkCore;
@@ -12,8 +14,25 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 //register dependency injection
-builder.Services.AddTransient<IFeedbacksRepository, FeedbacksRepository>();
-builder.Services.AddTransient<IFeedbacksService, FeedbacksService>();
+//builder.Services.AddTransient<IFeedbacksRepository, FeedbacksRepository>();
+//builder.Services.AddTransient<IFeedbacksService, FeedbacksService>();
+
+//Now register our services with Autofac container
+// Call UseServiceProviderFactory on the Host sub property 
+builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
+// Call ConfigureContainer on the Host sub property 
+builder.Host.ConfigureContainer<ContainerBuilder>(builder =>
+{
+    var serviceAssembly = typeof(FeedbacksService).Assembly;
+    builder.RegisterAssemblyTypes(serviceAssembly).Where(t => t.Name.EndsWith("Service"))
+    .AsImplementedInterfaces()
+    .SingleInstance();
+
+    var repositoryAssembly = typeof(FeedbacksRepository).Assembly;
+    builder.RegisterAssemblyTypes(repositoryAssembly).Where(t => t.Name.EndsWith("Repository"))
+    .AsImplementedInterfaces()
+    .SingleInstance();
+});
 
 builder.Services.AddTransient<IApplicationsRepository, ApplicationsRepository>();
 builder.Services.AddTransient<IApplicationsService, ApplicationsService>();
