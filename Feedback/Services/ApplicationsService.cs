@@ -11,27 +11,44 @@ namespace Feedback.Services
         {
             _applicationsRepository = applicationsRepository;
         }
-        public IEnumerable<Applications> GetAll()
+        public async Task<IEnumerable<Applications>> GetAll()
         {
-            var applications = _applicationsRepository.GetAll();
+            var applications = await _applicationsRepository.GetAll();
             var resp = applications.OrderByDescending(m => m.ApplicationName);
             return resp;
         }
-        public Applications GetById(int id)
+        public async Task<Applications> GetById(int id)
         {
-            return _applicationsRepository.GetById(id);
+            return await _applicationsRepository.GetById(id);
         }
-        public int Add(Applications applications)
+        public async Task<bool> Add(Applications applications)
         {
-            return _applicationsRepository.Add(applications);
+            var applicationList = await _applicationsRepository.GetAll();
+            var isDuplicate = applicationList.Where(m => m.ApplicationName == applications.ApplicationName);
+            if (isDuplicate.Count() > 0)
+            {
+                throw new Exception("Error Application is Duplicate");
+            }
+            return await _applicationsRepository.Add(applications) > 0;
         }
-        public int Update(Applications applications)
+        public async Task<bool> Update(Applications applications)
         {
-            return _applicationsRepository.Update(applications);
+            var applicationList = await _applicationsRepository.GetAll();
+            var isDuplicate = applicationList.Where(m => m.ApplicationName == applications.ApplicationName && m.Id != applications.Id);
+            if (isDuplicate.Count() > 0)
+            {
+                throw new Exception("Error Application is Duplicate");
+            }
+            return await _applicationsRepository.Update(applications) > 0;
         }
-        public int Delete(int id)
+        public async Task<bool> Delete(int id)
         {
-            return _applicationsRepository.Delete(id);
+            var application = await _applicationsRepository.GetById(id);
+            if (application == null)
+            {
+                throw new Exception("Error Application is Duplicate");
+            }
+            return await _applicationsRepository.Delete(id) > 0;
         }
 
         

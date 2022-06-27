@@ -16,31 +16,100 @@ namespace Feedback.Controllers
             _applicationsService = applicationsService;
         }
         [HttpGet]
-        public IEnumerable<Applications> GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            return _applicationsService.GetAll();
+            try
+            {
+                var res = await _applicationsService.GetAll();
+                return Ok(new { isSuccess = true, data = res });
+            }
+            catch (Exception ex)
+            {
+                return new JsonResult(new
+                {
+                    isSuccess = false,
+                    status = 500,
+                    message = ex.Message
+                });
+            }
         }
         [HttpGet("{id}")]
-        public Applications GetById(int id)
+        public async Task<IActionResult> GetById(int id)
         {
-            return _applicationsService.GetById(id);
+            try
+            {
+                var res = await _applicationsService.GetById(id);
+                return Ok(new { isSuccess = true, data = res });
+            }
+            catch (Exception ex)
+            {
+                return new JsonResult(new
+                {
+                    isSuccess = false,
+                    status = 500,
+                    message = ex.Message
+                });
+            }
+            
         }
 
         [HttpPost]
-        public int Add(Applications applications)
+        public async Task<IActionResult> Add(Applications applications)
         {
-            return _applicationsService.Add(applications);
+            try
+            {
+                var res = await _applicationsService.Add(applications);
+                return Ok(new { isSuccess = true, data = res });
+            }
+            catch (Exception ex)
+            {
+                return new JsonResult(new
+                {
+                    isSuccess = false,
+                    status = 500,
+                    message = ex.Message
+                });
+            }
+            
         }
 
         [HttpPut("{id}")]
-        public int Update(int id, Applications applications)
+        public async Task<IActionResult> Update(int id, Applications applications)
         {
-            return _applicationsService.Update(applications);
+            try
+            {
+                var res = await _applicationsService.Update(applications);
+                return Ok(new { isSuccess = true, data = res });
+            }
+            catch (Exception ex)
+            {
+                return new JsonResult(new
+                {
+                    isSuccess = false,
+                    status = 500,
+                    message = ex.Message
+                });
+            }
+            
         }
         [HttpDelete("{id}")]
-        public int Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            return _applicationsService.Delete(id);
+            try
+            {
+                var res = await _applicationsService.Delete(id);
+                return Ok(new { isSuccess = true, data = res });
+            }
+            catch (Exception ex)
+            {
+                return new JsonResult(new
+                {
+                    isSuccess = false,
+                    status = 500,
+                    message = ex.Message
+                });
+            }
+            
         }
     }
 }

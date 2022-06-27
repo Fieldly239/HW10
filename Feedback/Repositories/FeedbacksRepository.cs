@@ -34,7 +34,7 @@ namespace Feedback.Repositories
         //    }
         //}
 
-        public override int Add(Feedbacks feedbacks)
+        public override async Task<int> Add(Feedbacks feedbacks)
         {
             using (var db = new SqlConnection(_configuration.GetSection("ConnectionStrings:ConnectionString").Value))
             {
@@ -46,10 +46,10 @@ namespace Feedback.Repositories
                                                (@FeedbackName
                                                ,@Description
                                                ,@ApplicationId)");
-                return db.Execute(sqlCommand, ParameterMapping(feedbacks));
+                return await db.ExecuteAsync(sqlCommand, ParameterMapping(feedbacks));
             }
         }
-        public override int Update(Feedbacks feedbacks)
+        public override async Task<int> Update(Feedbacks feedbacks)
         {
             using (var db = new SqlConnection(_configuration.GetSection("ConnectionStrings:ConnectionString").Value))
             {
@@ -58,15 +58,15 @@ namespace Feedback.Repositories
                                                   ,[Description] = @Description
                                                   ,[ApplicationId] = @ApplicationId
                                              WHERE [Id] = @Id");
-                return db.Execute(sqlCommand, ParameterMapping(feedbacks));
+                return await db.ExecuteAsync(sqlCommand, ParameterMapping(feedbacks));
             }
         }
-        public override int Delete(int id)
+        public override async Task<int> Delete(int id)
         {
             using (var db = new SqlConnection(_configuration.GetSection("ConnectionStrings:ConnectionString").Value))
             {
                 var sqlCommand = string.Format(@"DELETE FROM [Feedbacks] WHERE [Id] = @Id");
-                return db.Execute(sqlCommand, new { Id = id});
+                return await db.ExecuteAsync(sqlCommand, new { Id = id});
             }
         }
 

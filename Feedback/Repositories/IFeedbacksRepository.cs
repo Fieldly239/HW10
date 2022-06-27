@@ -4,10 +4,10 @@ namespace Feedback.Repositories
 {
     public interface IFeedbacksRepository
     {
-        IEnumerable<Feedbacks> GetAll();
-        Feedbacks GetById(int id);
-        int Add(Feedbacks feedbacks);
-        int Update(Feedbacks feedbacks);
-        int Delete(int id);
+        Task<IEnumerable<Feedbacks>> GetAll();
+        Task<Feedbacks> GetById(int id);
+        Task<int> Add(Feedbacks feedbacks);
+        Task<int> Update(Feedbacks feedbacks);
+        Task<int> Delete(int id);
     }
 }

@@ -11,28 +11,46 @@ namespace Feedback.Services
         {
             _feedbacksRepository = feedbacksRepository;
         }
-        public IEnumerable<Feedbacks> GetAll()
+        public async Task<IEnumerable<Feedbacks>> GetAll()
         {
-            var feedbacks = _feedbacksRepository.GetAll();
+            var feedbacks = await _feedbacksRepository.GetAll();
             var resp = feedbacks.OrderByDescending(m => m.FeedbackName);
             return resp;
         }
-        public Feedbacks GetById(int id)
+        public async Task<Feedbacks> GetById(int id)
         {
-            return _feedbacksRepository.GetById(id);
+            return await _feedbacksRepository.GetById(id);
         }
-        public int Add(Feedbacks feedbacks)
+        public async Task<bool> Add(Feedbacks feedbacks)
         {
-            return _feedbacksRepository.Add(feedbacks);
+            //validate dupicate
+            var feedbackList = await _feedbacksRepository.GetAll();
+            var isDuplicate = feedbackList.Where(m => m.FeedbackName == feedbacks.FeedbackName);
+            if(isDuplicate.Count() > 0)
+            {
+                throw new Exception("Error! Feedbacks is duplicate");
+            }
+            return await _feedbacksRepository.Add(feedbacks) > 0;
         }
-        public int Update(Feedbacks feedbacks)
+        public async Task<bool> Update(Feedbacks feedbacks)
         {
-            return _feedbacksRepository.Update(feedbacks);
+            var feedbackList = await _feedbacksRepository.GetAll();
+            var isDuplicate = feedbackList.Where(m => m.FeedbackName == feedbacks.FeedbackName && m.Id != feedbacks.Id);
+            if (isDuplicate.Count() > 0)
+            {
+                throw new Exception("Error! Feedbacks is duplicate");
+            }
+            return await _feedbacksRepository.Update(feedbacks) > 0;
         }
 
-        public int Delete(int id)
+        public async Task<bool> Delete(int id)
         {
-            return _feedbacksRepository.Delete(id);
+            var feedback = await _feedbacksRepository.GetById(id);
+            if (feedback == null)
+            {
+                throw new Exception("Error! Feedback not exist");
+            }
+            return await _feedbacksRepository.Delete(id) > 0;
         }
 
         

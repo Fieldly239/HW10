@@ -14,7 +14,7 @@ namespace Feedback.Repositories
             _configuration = configuration;
         }
 
-        public override int Add(Applications applications)
+        public override async Task<int> Add(Applications applications)
         {
             using (var db = new SqlConnection(_configuration.GetSection("ConnectionStrings:ConnectionString").Value))
             {
@@ -24,10 +24,10 @@ namespace Feedback.Repositories
                                          VALUES
                                                (@ApplicationName
                                                ,@Description)");
-                return db.Execute(sqlCommand, ParameterMapping(applications));
+                return await db.ExecuteAsync(sqlCommand, ParameterMapping(applications));
             }
         }
-        public override int Update(Applications applications)
+        public override async Task<int> Update(Applications applications)
         {
             using (var db = new SqlConnection(_configuration.GetSection("ConnectionStrings:ConnectionString").Value))
             {
@@ -35,15 +35,15 @@ namespace Feedback.Repositories
                                            SET [ApplicationName] = @ApplicationName
                                               ,[Description] = @Description
                                          WHERE [Id] = @Id");
-                return db.Execute(sqlCommand, ParameterMapping(applications));
+                return await db.ExecuteAsync(sqlCommand, ParameterMapping(applications));
             }
         }
-        public override int Delete(int id)
+        public override async Task<int> Delete(int id)
         {
             using (var db = new SqlConnection(_configuration.GetSection("ConnectionStrings:ConnectionString").Value))
             {
                 var sqlCommand = string.Format(@"DELETE FROM [Applications] WHERE [Id] = @Id");
-                return db.Execute(sqlCommand, new { Id = id });
+                return await db.ExecuteAsync(sqlCommand, new { Id = id });
             }
         }
 

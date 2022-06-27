@@ -4,10 +4,10 @@ namespace Feedback.Repositories
 {
     public interface IApplicationsRepository
     {
-        IEnumerable<Applications> GetAll();
-        Applications GetById(int id);
-        int Add(Applications applications);
-        int Update(Applications applications);
-        int Delete(int id);
+        Task<IEnumerable<Applications>> GetAll();
+        Task<Applications> GetById(int id);
+        Task<int> Add(Applications applications);
+        Task<int> Update(Applications applications);
+        Task<int> Delete(int id);
     }
 }
